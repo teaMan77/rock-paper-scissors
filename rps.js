@@ -6,71 +6,72 @@ function getComputerChoice() {
   let choice = Math.random() * 10;
 
   if (choice <= 3) {
-    return "Rock";
+    return "rock";
   } else if (choice > 3 && choice <= 7) {
-    return "Paper";
+    return "paper";
   } else {
-    return "Scissors";
+    return "scissors";
   }
 }
 
-function getUserChoice() {
-  let userChoice = prompt(
-    "Please enter your choice -- Rock, Paper, Scissors -- Which one do you choose? "
-  ).toLowerCase();
-  let computerChoice = getComputerChoice().toLowerCase();
+window.addEventListener("DOMContentLoaded", (event) => {
+  const userChoice = document.querySelectorAll(".b");
 
-  if (computerChoice === "rock") {
-    if (userChoice === "paper") {
-      userWin++;
-      consoleMessage(computerChoice, userChoice, "You Win!");
-    } else if (userChoice === "scissors") {
-      computerWin++;
-      consoleMessage(computerChoice, userChoice, "Computer Wins T_T");
-    }
-  } else if (computerChoice === "paper") {
-    if (userChoice === "rock") {
-      computerWin++;
-      consoleMessage(computerChoice, userChoice, "Computer Wins T_T");
-    } else if (userChoice === "scissors") {
-      userWin++;
-      consoleMessage(computerChoice, userChoice, "You Win!");
-    }
-  } else if (computerChoice === "scissors") {
-    if (userChoice === "rock") {
-      userWin++;
-      consoleMessage(computerChoice, userChoice, "You Win!");
-    } else if (userChoice === "paper") {
-      computerWin++;
-      consoleMessage(computerChoice, userChoice, "Computer Wins T_T");
-    }
-  } else if (computerChoice === userChoice) {
+  for(let i = 0; i < 3; i++) {
+    userChoice[i].addEventListener("click", playGame);
+  }
+});
+
+const result = document.querySelector(".result");
+
+const playGame = function(event) {
+  let computerChoice = getComputerChoice();
+  let userChoice = event.target.getAttribute("value").toLowerCase();
+
+  if(userChoice === computerChoice) {
+    result.textContent = "It's a tie!!!"
     tie++;
-    consoleMessage(
-      computerChoice,
-      userChoice,
-      "What a coincedence!! It's a tie!"
-    );
+  } else {
+    if(userChoice === "rock") {
+      if(computerChoice === "scissors") {
+        result.textContent = "Computer chose Scissors: Rock beats Scissors! You have won!!";
+        userWin++;
+      } else if(computerChoice === "paper") {
+        result.textContent = "Computer chose Paper: Paper beats Rock! You have lost T_T";
+        computerWin++;
+      } 
+    }
+    if(userChoice === "paper") {
+      if(computerChoice === "rock") {
+        result.textContent = "Computer chose Rock: Paper beats Rock! You have won!!";
+        userWin++;
+      } else if(computerChoice === "scissors") {
+        result.textContent = "Computer chose Scissors: Scissors beats Paper! You have lost T_T";
+        computerWin++;
+      }
+    }
+    if(userChoice === "scissors") {
+      if(computerChoice === "paper") {
+        result.textContent = "Computer chose Paper: Scissors beats Paper! You have won!!";
+        userWin++;
+      } else if(computerChoice === "rock") {
+        result.textContent = "Computer chose Rock: Rock beats Scissors! You have lost T_T";
+        computerWin++;
+      }
+    }
   }
-}
-function playGame() {
-  let rounds = parseInt(
-    prompt("How many rounds do you wish to play the game?")
-  );
+  
+  const gameResult1 = document.createElement("p");
+  gameResult1.textContent = `Total Wins: ${userWin}`;
+  result.appendChild(gameResult1);
 
-  for (let i = 0; i < rounds; i++) {
-    getUserChoice();
-  }
+  const gameResult2 = document.createElement("p");
+  gameResult2.textContent = `Total Losses: ${computerWin}`;
+  result.appendChild(gameResult2);
 
-  console.log("Total Wins: " + userWin);
-  console.log("Total Losses: " + computerWin);
-  console.log("Total Ties: " + tie);
-}
-
-function consoleMessage(computerChoice, userChoice, message) {
-  console.log("Computer played: " + computerChoice);
-  console.log("You played: " + userChoice);
-  console.log(message);
+  const gameResult3 = document.createElement("p");
+  gameResult3.textContent = `Total Ties: ${tie}`;
+  result.appendChild(gameResult3);
 }
 
-playGame();
+
