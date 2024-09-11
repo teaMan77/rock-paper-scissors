@@ -22,45 +22,35 @@ function getUserChoice() {
 
   if (computerChoice === "rock") {
     if (userChoice === "paper") {
-      console.log("Computer played: " + computerChoice);
-      console.log("You played: " + userChoice);
-      console.log("You Win!");
       userWin++;
+      consoleMessage(computerChoice, userChoice, "You Win!");
     } else if (userChoice === "scissors") {
-      console.log("Computer played: " + computerChoice);
-      console.log("You played: " + userChoice);
-      console.log("Computer Wins T_T");
       computerWin++;
+      consoleMessage(computerChoice, userChoice, "Computer Wins T_T");
     }
   } else if (computerChoice === "paper") {
     if (userChoice === "rock") {
-      console.log("Computer played: " + computerChoice);
-      console.log("You played: " + userChoice);
-      console.log("Computer Wins T_T");
       computerWin++;
+      consoleMessage(computerChoice, userChoice, "Computer Wins T_T");
     } else if (userChoice === "scissors") {
-      console.log("Computer played: " + computerChoice);
-      console.log("You played: " + userChoice);
-      console.log("You Win!");
       userWin++;
+      consoleMessage(computerChoice, userChoice, "You Win!");
     }
   } else if (computerChoice === "scissors") {
     if (userChoice === "rock") {
-      console.log("Computer played: " + computerChoice);
-      console.log("You played: " + userChoice);
-      console.log("You Win!");
       userWin++;
+      consoleMessage(computerChoice, userChoice, "You Win!");
     } else if (userChoice === "paper") {
-      console.log("Computer played: " + computerChoice);
-      console.log("You played: " + userChoice);
-      console.log("Computer Wins T_T");
       computerWin++;
+      consoleMessage(computerChoice, userChoice, "Computer Wins T_T");
     }
   } else if (computerChoice === userChoice) {
-    console.log("Computer played: " + computerChoice);
-    console.log("You played: " + userChoice);
-    console.log("What a coincedence!! It's a tie!");
     tie++;
+    consoleMessage(
+      computerChoice,
+      userChoice,
+      "What a coincedence!! It's a tie!"
+    );
   }
 }
 function playGame() {
@@ -75,6 +65,12 @@ function playGame() {
   console.log("Total Wins: " + userWin);
   console.log("Total Losses: " + computerWin);
   console.log("Total Ties: " + tie);
+}
+
+function consoleMessage(computerChoice, userChoice, message) {
+  console.log("Computer played: " + computerChoice);
+  console.log("You played: " + userChoice);
+  console.log(message);
 }
 
 playGame();
